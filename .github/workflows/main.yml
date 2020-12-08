@@ -9,8 +9,7 @@ on:
         default: 'us-east-1'
 
 jobs:
-  build
-  cloudformation:
+  website:
     name: Deploy stack to AWS
     runs-on: ubuntu-latest
     strategy:
