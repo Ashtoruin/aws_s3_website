@@ -1,6 +1,7 @@
 name: Deploy CFT
 
 on:
+  push:
   workflow_dispatch:
     inputs:
       region:
