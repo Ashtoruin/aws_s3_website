@@ -1,5 +1,5 @@
 Resources:
   Type: AWS::Route53::HostedZone
-    Properties: 
-      Name: bernau.io.
+  Properties: 
+    Name: bernau.io.
 
