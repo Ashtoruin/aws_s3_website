@@ -3,10 +3,10 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       AccessControl: PublicRead
+      BucketName: roland-bernau-resume
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: error.html
-    DeletionPolicy: Retain
   BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:

@@ -1,12 +1,6 @@
 name: Deploy CFT
 
-on:
-  workflow_dispatch:
-    inputs:
-      region:
-        description: 'AWS Region'
-        required: true
-        default: 'us-east-1'
+on: [push]
 
 jobs:
   website:
@@ -32,7 +26,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ github.event.inputs.region}}
+        aws-region: us-east-1
 
     - name: Deploy CFT
       id: website-cft
@@ -41,3 +35,7 @@ jobs:
         name: website-cft
         template: cft/main.yml
         no-fail-on-empty-changeset: "1"
+
+    - name: Deploy Frontent
+      run: aws s3 sync . s3://roland-bernau-resume
+      working-directory: frontend/build
