@@ -53,3 +53,11 @@ Resources:
         - !GetAtt BucketCDN.DomainName
       TTL: '900'
       Type: CNAME
+  ACMCertificate: 
+    Type: "AWS::CertificateManager::Certificate"
+    Properties: 
+      DomainName: resume.bernau.io
+      DomainValidationOptions:
+            - DomainName: bernau.io
+              HostedZoneId: !ImportValue bernau-io-hosted-zone
+      ValidationMethod: DNS 
