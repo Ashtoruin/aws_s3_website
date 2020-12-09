@@ -1,0 +1,11 @@
+Resources:
+  DNS:
+    Type: AWS::Route53::HostedZone
+    Properties: 
+      Name: bernau.io.
+Outputs:
+  HostedZone:
+    Description: bernau.io hosted zone id
+    Value: !Ref DNS
+    Export:
+      Name: bernau-io-hosted-zone

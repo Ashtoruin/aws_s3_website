@@ -1,5 +1,6 @@
 name: Deploy CFT
 
+<<<<<<< HEAD
 on:
   push:
   workflow_dispatch:
@@ -8,6 +9,9 @@ on:
         description: 'AWS Region'
         required: true
         default: 'us-east-1'
+=======
+on: [push]
+>>>>>>> 265984d192922b015077bf7c736a0a1ca44e9867
 
 jobs:
   website:
@@ -33,7 +37,15 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ github.event.inputs.region}}
+        aws-region: us-east-1
+
+    - name: Deploy Route53 Hosted Zone
+      id: route53bernauio
+      uses: aws-actions/aws-cloudformation-github-deploy@v1
+      with:
+        name: route53-bernau-io
+        template: cft/bernau.io.yml
+        no-fail-on-empty-changeset: "1"
 
     - name: Deploy CFT
       id: website-cft
@@ -42,3 +54,7 @@ jobs:
         name: website-cft
         template: cft/main.yml
         no-fail-on-empty-changeset: "1"
+
+    - name: Deploy Frontent
+      run: aws s3 sync --delete . s3://roland-bernau-resume
+      working-directory: frontend/build
