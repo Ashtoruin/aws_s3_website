@@ -42,3 +42,12 @@ Resources:
             OriginProtocolPolicy: http-only
           DomainName: !Sub '${S3Bucket}.s3.amazonaws.com'
           Id: only-origin
+  BucketDNS:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId : !ImportValue bernau-io-hosted-zone
+      Name: resume.bernau.io
+      ResourceRecords:
+        - !GetAtt BucketCDN.DomainName
+      TTL: '900'
+      Type: CNAME
