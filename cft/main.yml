@@ -24,3 +24,44 @@ Resources:
                 - !Ref S3Bucket
                 - /*
       Bucket: !Ref S3Bucket
+  BucketCDN:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Aliases: 
+          - resume.bernau.io
+        Enabled: 'true'
+        DefaultCacheBehavior:
+          ForwardedValues:
+            QueryString: 'true'
+          TargetOriginId: only-origin
+          ViewerProtocolPolicy: allow-all
+        DefaultRootObject: index.html
+        Origins:
+        - CustomOriginConfig:
+            HTTPPort: '80'
+            HTTPSPort: '443'
+            OriginProtocolPolicy: http-only
+          DomainName: !Sub '${S3Bucket}.s3.amazonaws.com'
+          Id: only-origin
+        ViewerCertificate:
+          AcmCertificateArn: !Ref ACMCertificate
+          MinimumProtocolVersion: TLSv1
+          SslSupportMethod: sni-only
+  BucketDNS:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId : !ImportValue bernau-io-hosted-zone
+      Name: resume.bernau.io
+      ResourceRecords:
+        - !GetAtt BucketCDN.DomainName
+      TTL: '900'
+      Type: CNAME
+  ACMCertificate: 
+    Type: "AWS::CertificateManager::Certificate"
+    Properties: 
+      DomainName: resume.bernau.io
+      DomainValidationOptions:
+            - DomainName: bernau.io
+              HostedZoneId: !ImportValue bernau-io-hosted-zone
+      ValidationMethod: DNS 
