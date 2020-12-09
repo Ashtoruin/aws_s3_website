@@ -1,18 +1,6 @@
 name: Deploy CFT
 
-<<<<<<< HEAD
-on:
-  push:
-  workflow_dispatch:
-    inputs:
-      region:
-        description: 'AWS Region'
-        required: true
-        default: 'us-east-1'
-=======
 on: [push]
->>>>>>> 265984d192922b015077bf7c736a0a1ca44e9867
-
 jobs:
   website:
     name: Deploy stack to AWS
