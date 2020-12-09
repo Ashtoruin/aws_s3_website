@@ -26,11 +26,8 @@ Resources:
       Bucket: !Ref S3Bucket
   BucketCDN:
     Type: AWS::CloudFront::Distribution
-    DependsOn: BucketDNS
     Properties:
       DistributionConfig:
-        Aliases:
-          - resume.bernau.io
         Enabled: 'true'
         DefaultCacheBehavior:
           ForwardedValues:
@@ -45,10 +42,3 @@ Resources:
             OriginProtocolPolicy: http-only
           DomainName: !Sub '${S3Bucket}.s3.amazonaws.com'
           Id: only-origin
-  BucketDNS:
-    Type: AWS::Route53::RecordSet
-    Properties:
-      HostedZoneId : !ImportValue bernau-io-hosted-zone
-      Name: resume.bernau.io
-      TTL: '900'
-      Type: TXT
