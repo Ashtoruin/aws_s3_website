@@ -46,7 +46,6 @@ Resources:
           Id: only-origin
         ViewerCertificate:
           AcmCertificateArn: !Ref ACMCertificate
-          CloudFrontDefaultCertificate: false
           MinimumProtocolVersion: TLSv1
           SslSupportMethod: sni-only
   BucketDNS:
