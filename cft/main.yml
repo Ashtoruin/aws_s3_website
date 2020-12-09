@@ -26,6 +26,7 @@ Resources:
       Bucket: !Ref S3Bucket
   BucketCDN:
     Type: AWS::CloudFront::Distribution
+    DependsOn: BucketDNS
     Properties:
       DistributionConfig:
         Aliases:
@@ -49,7 +50,5 @@ Resources:
     Properties:
       HostedZoneId : !ImportValue bernau-io-hosted-zone
       Name: resume.bernau.io
-      ResourceRecords:
-        - !Sub 'http://${S3Bucket}.s3.amazonaws.com'
       TTL: '900'
-      Type: CNAME
+      Type: TXT
