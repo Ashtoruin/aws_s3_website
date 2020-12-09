@@ -28,8 +28,8 @@ Resources:
     Type: AWS::CloudFront::Distribution
     Properties:
       DistributionConfig:
-        #Aliases: 
-          #- resume.bernau.io
+        Aliases: 
+          - resume.bernau.io
         Enabled: 'true'
         DefaultCacheBehavior:
           ForwardedValues:
@@ -44,6 +44,11 @@ Resources:
             OriginProtocolPolicy: http-only
           DomainName: !Sub '${S3Bucket}.s3.amazonaws.com'
           Id: only-origin
+        ViewerCertificate:
+          AcmCertificateArn: !Ref ACMCertificate
+          CloudFrontDefaultCertificate: false
+          MinimumProtocolVersion: TLSv1
+          SslSupportMethod: sni-only
   BucketDNS:
     Type: AWS::Route53::RecordSet
     Properties:
