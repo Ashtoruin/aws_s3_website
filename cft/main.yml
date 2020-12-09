@@ -24,3 +24,12 @@ Resources:
                 - !Ref S3Bucket
                 - /*
       Bucket: !Ref S3Bucket
+  BucketDNS:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId : !ImportValue bernau-io-hosted-zone
+      Name: resume.bernau.io
+      ResourceRecords:
+        - http://roland-bernau-resume.s3.amazonaws.com/
+      TTL: '900'
+      Type: CNAME
