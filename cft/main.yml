@@ -42,7 +42,7 @@ Resources:
             HTTPPort: '80'
             HTTPSPort: '443'
             OriginProtocolPolicy: http-only
-          DomainName: !Sub 'http://${S3Bucket}.s3.amazonaws.com/'
+          DomainName: !Sub '${S3Bucket}.s3.amazonaws.com'
           Id: only-origin
   BucketDNS:
     Type: AWS::Route53::RecordSet
@@ -50,6 +50,6 @@ Resources:
       HostedZoneId : !ImportValue bernau-io-hosted-zone
       Name: resume.bernau.io
       ResourceRecords:
-        - !Sub 'http://${S3Bucket}.s3.amazonaws.com/'
+        - !Sub 'http://${S3Bucket}.s3.amazonaws.com'
       TTL: '900'
       Type: CNAME
