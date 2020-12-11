@@ -6,7 +6,6 @@ Resources:
       BucketName: roland-bernau-resume
       WebsiteConfiguration:
         IndexDocument: index.html
-        ErrorDocument: error.html
   BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -35,13 +34,13 @@ Resources:
           ForwardedValues:
             QueryString: 'true'
           TargetOriginId: only-origin
-          ViewerProtocolPolicy: allow-all
+          ViewerProtocolPolicy: redirect-to-https
         DefaultRootObject: index.html
         Origins:
         - CustomOriginConfig:
             HTTPPort: '80'
             HTTPSPort: '443'
-            OriginProtocolPolicy: http-only
+            OriginProtocolPolicy: match-viewer
           DomainName: !Sub '${S3Bucket}.s3.amazonaws.com'
           Id: only-origin
         ViewerCertificate:
