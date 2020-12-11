@@ -31,6 +31,8 @@ Resources:
           - resume.bernau.io
         Enabled: 'true'
         DefaultCacheBehavior:
+          ForwardedValues:
+            QueryString: 'true'
           TargetOriginId: only-origin
           ViewerProtocolPolicy: redirect-to-https
         DefaultRootObject: index.html
