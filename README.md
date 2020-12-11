@@ -3,6 +3,7 @@
 ## Building
 * build: `npm run-script build` (While in the frontend directory)
 * run locally: `npm run-script start` (While in the frontend directory)
+
 This requires nodejs installed to build and run locally. Changes to the content of the site can be made by editing the frontend/public/resumeData.json file.
 
 ## Deploying
